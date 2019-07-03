@@ -1,4 +1,4 @@
-name = "PumpProbeModel"
+name = "PumpProbeModels"
 uuid = "c045c9a4-9cbd-11e9-012e-3d86e60c81ee"
 authors = ["MLackner <lacknersmichael@gmail.com>"]
 version = "0.1.0"
