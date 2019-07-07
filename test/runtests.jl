@@ -1,17 +1,17 @@
-# using PumpProbeModels
-using PyPlot
+using PumpProbeModels
+# using PyPlot
 using BenchmarkTools
-pygui(false)
+# pygui(false)
 
 wavenumbers = 2800:3000
 delaytimes = 0:100
 
 model = PumpProbeModel(wavenumbers, delaytimes, 2)
-model2 = PumpProbeModel(wavenumbers, delaytimes, 3; pumpmode=:triangle)
-model2.parameters.A = [0.8, 1.0, 0.9]
-model2.parameters.τ = [[200.0, 10, 90]]
-model2.parameters.Δω = [0.0, 0.0, -20]
-model2.parameters.σ = [[0.0, 0.0, 20.0]]
+model.parameters.A = [3.0, 3.0]
+model.parameters.a = [0.4, 0.4]
+model2 = PumpProbeModel(wavenumbers, delaytimes, 2; pumpmode=:triangle)
+model2.parameters = model.parameters
+model2.pumptimes = -1:0.1:1
 
 F = Array{Float64,2}(undef, length(delaytimes), length(wavenumbers))
 w,d,G = PumpProbeModels.convert1D(wavenumbers,delaytimes,F)
@@ -30,15 +30,15 @@ PumpProbeModels.evaluate!(H, w, d, model2)
 X = reshape(G, size(F))
 Y = reshape(H, size(F))
 @show X[40,20]
-@assert X[40,20] == -0.0002233944636494317
+@assert X[40,20] == -0.002614753495806977
 
 XN = X' ./ minimum(X)
-YN = Y' ./ minimum(Y)
+YN = Y' ./ minimum(Y);
 
-figure()
-subplot(121)
-pcolormesh(YN); title("YN")
-subplot(122)
-pcolormesh(XN); title("XN")
+# figure()
+# subplot(121)
+# pcolormesh(YN); title("YN")
+# subplot(122)
+# pcolormesh(XN); title("XN")
 
-c, d
+nothing

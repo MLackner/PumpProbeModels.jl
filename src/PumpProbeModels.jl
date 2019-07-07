@@ -134,7 +134,9 @@ function evaluate!(F::T, x, t, m::PumpProbeModel) where T
         compute_spectra!(r, s, m, x, t, t_step)
         @. F += (abs2(s) - abs2(r)) * pumpintensity
     end
-
+    # Integrate Intesity and normalize
+    @show intensity_total = m.pumpfunction.(m.pumptimes) |> sum
+    F ./= intensity_total  #Renormalize
     return F
 end
 
