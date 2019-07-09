@@ -154,4 +154,16 @@ function convert1D(x, y, z)
     xarray, yarray, zarray
 end
 
+"""
+Returns the 2D data for a `PumpProbeModel`
+"""
+function model2data(m::PumpProbeModel)
+    x = m.wavenumbers
+    y = m.delaytimes
+    z = Array{Float64,2}(undef, length(y), length(x))
+    X,Y,Z = PumpProbeModels.convert1D(x,y,z)
+    evaluate!(Z,X,Y, m)
+    z .= reshape(Z, size(z))
+end
+
 end # module
