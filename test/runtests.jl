@@ -24,7 +24,7 @@ H = deepcopy(G)
 # c = @benchmark PumpProbeModels.evaluate!($G, $w, $d, $model)
 # d = @benchmark PumpProbeModels.evaluate!($H, $w, $d, $model2)
 
-PumpProbeModels.evaluate!(G, w, d, model)
+@btime PumpProbeModels.evaluate!(G, w, d, model)
 PumpProbeModels.evaluate!(H, w, d, model2)
 
 X = reshape(G, size(F))
