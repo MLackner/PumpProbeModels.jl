@@ -1,6 +1,8 @@
 module PumpProbeModels
 
-export PumpProbeModel, evaluate!
+export PumpProbeModel, evaluate!,
+       convert1D,
+       model2data
 
 mutable struct ParamContainer
     A::Array{Real,1}
