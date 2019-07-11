@@ -25,12 +25,14 @@ H = deepcopy(G)
 # d = @benchmark PumpProbeModels.evaluate!($H, $w, $d, $model2)
 
 @btime PumpProbeModels.evaluate!(G, w, d, model)
-PumpProbeModels.evaluate!(H, w, d, model2)
+@btime PumpProbeModels.evaluate!(H, w, d, model2)
 
 X = reshape(G, size(F))
 Y = reshape(H, size(F))
 @show X[40,20]
+@show Y[40,20]
 @assert X[40,20] == -0.002614753495806977
+@assert Y[40,20] == -0.0026144358299938697
 
 XN = X' ./ minimum(X)
 YN = Y' ./ minimum(Y);
