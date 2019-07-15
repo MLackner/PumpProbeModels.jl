@@ -102,21 +102,21 @@ function evaluate!(F::T, x, t, m::PumpProbeModel) where T
             # Checking for zero values prevents computing unneccesary terms
             if iszero(Δω[i]) && iszero(ΔΓ[i])
                 # println("both zero")
-                @. s += A[i] * (1 - a[i] * myexp(-(t-t0) / τ[1][i])) /
+                @. s += A[i] * (1 - a[i] / 100 * myexp(-(t-t0) / τ[1][i])) /
                         (ω[i] - x - 1im * Γ[i])
             elseif iszero(ΔΓ[i])
                 # println("gamma zero")
-                @. s += A[i] * (1 - a[i] * myexp(-(t-t0) / τ[1][i])) /
+                @. s += A[i] * (1 - a[i] / 100 * myexp(-(t-t0) / τ[1][i])) /
                         (ω[i] + Δω[i] * myexp(-(t-t0) / σ[1][i]) - x -
                         1im * Γ[i])
             elseif iszero(Δω[i])
                 # println("omega zero")
-                @. s += A[i] * (1 - a[i] * myexp(-(t-t0) / τ[1][i])) /
+                @. s += A[i] * (1 - a[i] / 100 * myexp(-(t-t0) / τ[1][i])) /
                         (ω[i] - x -
                         1im * (Γ[i] + ΔΓ[i] * myexp(-(t-t0) / γ[1][i])))
             elseif !iszero(Δω[i]) && !iszero(ΔΓ[i])
                 # println("none zero")
-                @. s += A[i] * (1 - a[i]   * myexp(-(t-t0) / τ[1][i])) /
+                @. s += A[i] * (1 - a[i] / 100 * myexp(-(t-t0) / τ[1][i])) /
                         (ω[i]  + Δω[i] * myexp(-(t-t0) / σ[1][i]) - x -
                         1im * (Γ[i] + ΔΓ[i] * myexp(-(t-t0) / γ[1][i])))
             else

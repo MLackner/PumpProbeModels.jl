@@ -8,7 +8,7 @@ delaytimes = 0:100
 
 model = PumpProbeModel(wavenumbers, delaytimes, 2)
 model.parameters.A = [3.0, 3.0]
-model.parameters.a = [0.4, 0.4]
+model.parameters.a = [40.0, 40.0]
 model2 = PumpProbeModel(wavenumbers, delaytimes, 2; pumpmode=:triangle)
 model2.parameters = model.parameters
 model2.pumptimes = -1:0.1:1
